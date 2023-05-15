@@ -1,0 +1,23 @@
+package helper;
+import java.sql.*;
+
+public class Insert {
+    public static void main(String[] args) throws SQLException{
+        try(Connection conn = Connections.getConnection()){
+            String sql = "INSERT INTO funcionario"
+                + "(ID, NAME, AGE, CITY)"
+                + "VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,  2);
+            stmt.setString(2, "Sofia Smith Z.");
+            stmt.setInt(3, 25);
+            stmt.setString(4, "San Francisco");
+            stmt.execute();
+            stmt.close();
+            conn.close();
+            System.out.println("Insertion successful...");
+        } catch (SQLException e) {
+            System.out.println("Insertion failed..." + e.getMessage());
+        }
+    }
+}

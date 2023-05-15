@@ -1,0 +1,22 @@
+package helper;
+import java.sql.*;
+
+import Connections;
+public class CreateTables {
+    public static void main(String[] args) throws SQLException{ 
+        try (Connection conn = Connections.getConnection();){
+            String sql = "CREATE TABLE IF NOT EXISTS {table name} (" +
+                "ID INT PRIMARY KEY AUTO_INCREMENT," + 
+                "NAME VARCHAR(255) NOT NULL," + 
+                "AGE INT NOT NULL," +  "CITY VARCHAR(255) NOT NULL" + 
+                ")";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            conn.close();
+            System.out.println("Table created successfully...");
+        } catch (SQLException e) {
+            System.out.println("Table creation failed...");
+            throw new RuntimeException(e);
+        }
+    }
+}

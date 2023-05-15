@@ -1,0 +1,25 @@
+package helper;
+import java.sql.*;
+
+import Connections;
+public class Select {
+    public static void main(String[] args) throws SQLException{
+        try(Connection conn = Connections.getConnection();){
+            String sql = "SELECT * FROM funcionario";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                System.out.println(
+                "ID: " + rs.getInt("ID") 
+                + "\nNAME: " + rs.getString("NAME") 
+                + "\nAGE: " + rs.getInt("AGE") 
+                + "\nCITY: " + rs.getString("CITY")
+                + "\n--------------------------"
+                );
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+    }
+}

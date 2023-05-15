@@ -1,0 +1,15 @@
+package helper;
+import java.sql.*;
+public class CreateDatabases {
+    public static void main(String[] args) throws SQLException{
+        try (Connection conn = Connections.getConnection()) {
+            Statement stmt = conn.createStatement();
+            stmt.execute("CREATE DATABASE IF NOT EXISTS DB00");
+            System.out.println("Database created successfully...");
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Database creation failed...");
+            throw new RuntimeException(e);
+        }
+    }
+}
